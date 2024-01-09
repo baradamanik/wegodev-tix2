@@ -24,7 +24,10 @@ Route::middleware('auth')->group(function(){
 
 //Dashboard
 Route::get('/dashboard', [App\Http\Controllers\Dashboard\DashboardController::class, 'index'])->name('dashboard');
-Route::get('/dashboard/movies', [App\Http\Controllers\Dashboard\MoviesController::class, 'index'])->name('dashboard.movies');
+
+//movie
+Route::get('/dashboard/movies', [App\Http\Controllers\Dashboard\MovieController::class, 'index'])->name('dashboard.movies');
+
 Route::get('/dashboard/theaters', [App\Http\Controllers\Dashboard\TheatersController::class, 'index'])->name('dashboard.theaters');
 Route::get('/dashboard/ticket', [App\Http\Controllers\Dashboard\TicketController::class, 'index'])->name('dashboard.ticket');
 
