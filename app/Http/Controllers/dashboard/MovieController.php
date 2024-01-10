@@ -39,7 +39,10 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        $active = 'Movies';
+        return view('dashboard/Movie/form', [
+            'active' => $active
+        ]);
     }
 
     /**
