@@ -58,6 +58,11 @@ class Menu extends Component
                 'label' => 'Users',
                 'route' => 'dashboard.users',
                 'icon'  => 'fas fa-users'
+            ],
+            [
+                'label' => 'Logout',
+                'route' => 'dashboard.users',
+                'icon'  => 'fas fa-users'
             ]
          ];
     }

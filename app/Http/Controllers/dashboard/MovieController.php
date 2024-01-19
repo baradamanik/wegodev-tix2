@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\dashboard;
 
-use App\Http\Controllers\Controller;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class MovieController extends Controller
 {
@@ -53,7 +55,31 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title'         => 'required|unique:App\Models\Movie,title',
+            'description'   => 'required',
+            'thumbnail'     => 'required|image'
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()
+                ->route('dashboard.movies.create')
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+            $movie = new Movie(); // Tambahkan ini untuk membuat objek Movie
+            $image = $request->file('thumbnail');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            Storage::disk('local')->putFileAs('public/movie', $image, $filename);
+    
+            $movie->title = $request->input('title');
+            $movie->description = $request->input('description');
+            $movie->thumbnail = $filename; // Ganti dengan nama file yang baru diupload
+            $movie->save();
+    
+            return redirect()->route('dashboard.movies');
+        }
+        
     }
 
     /**
@@ -76,6 +102,13 @@ class MovieController extends Controller
     public function edit(Movie $movie)
     {
         //
+        $active = 'Movies';
+        return view('dashboard/Movie/form', [
+            'active' => $active,
+            'movie'  =>$movie,
+            'button' =>'Update',
+            'url'    =>'dashboard.movies.update'   
+        ]);
     }
 
     /**
@@ -88,6 +121,32 @@ class MovieController extends Controller
     public function update(Request $request, Movie $movie)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'title'         => 'required|unique:App\Models\Movie,title,'.$movie->id,
+            'description'   => 'required',
+            'thumbnail'     => 'image'
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()
+                ->route('dashboard.movies.update', $movie->id)
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+           //  $movie = new Movie(); // Tambahkan ini untuk membuat objek Movie
+                if($request->hasFile('thumbnail')){  
+                    $image = $request->file('thumbnail');
+                    $filename = time() . '.' . $image->getClientOriginalExtension();
+                        Storage::disk('local')->putFileAs('public/movie', $image, $filename);
+                    $movie->thumbnail = $filename; // Ganti dengan nama file yang baru diupload
+                }
+            $movie->title = $request->input('title');
+            $movie->description = $request->input('description');
+            $movie->save();
+    
+            return redirect()->route('dashboard.movies');
+        }
+        
     }
 
     /**
