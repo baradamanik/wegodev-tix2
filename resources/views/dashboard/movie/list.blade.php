@@ -43,7 +43,8 @@
                                 <img src="{{asset('storage/movie/'.$movie->thumbnail)}}" class="img-fluid">
                             </td>
                             <td>
-                                <h4><strong>{{ $movie->title }}</strong></h4>
+                                <h4><strong>{{ $movie->title }}</strong></h4><br>
+                                {{ $movie->description }}
                             </td>
                             <td><a href="{{ route('dashboard.movies.edit', $movie->id) }}" class="btn btn-success btn-sm"><i class="fas fa-pen"></i></a></td>
                         </tr>

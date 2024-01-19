@@ -43,7 +43,9 @@ class MovieController extends Controller
     {
         $active = 'Movies';
         return view('dashboard/Movie/form', [
-            'active' => $active
+            'active' => $active,
+            'button' =>'Create',
+            'url'    =>'dashboard.movies.store' 
         ]);
     }
 
@@ -157,6 +159,8 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+        $movie->delete();
+        return redirect()
+                ->route('dashboard.movies');
     }
 }
