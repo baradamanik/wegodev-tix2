@@ -37,12 +37,12 @@ class Menu extends Component
             [
                 'label' => 'Dashboard',
                 'route' => 'dashboard',
-                'icon'  => 'fas fa-tachometer-alt'
+                'icon'  => 'fa-solid fa-landmark'
             ],
             [
                 'label' => 'Movies',
                 'route' => 'dashboard.movies',
-                'icon'  => 'fas fa-video'
+                'icon'  => 'fa-solid fa-display'
             ],
             [
                 'label' => 'Theaters',
