@@ -40,7 +40,7 @@
                         
                             <div class="custom-file">
                                     <input type="file" name="thumbnail" class="custom-file-input">
-                                    <label for="thumbnail" class="custom-file-label">Thumbnail</label><br>*Jika tidak ingin merubah thumbnail kosongkan saja
+                                    <label for="thumbnail" class="custom-file-label">Thumbnail</label><br><br>*Jika tidak ingin merubah thumbnail kosongkan saja
                                     @error('thumbnail')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror

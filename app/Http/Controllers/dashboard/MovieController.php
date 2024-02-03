@@ -22,8 +22,8 @@ class MovieController extends Controller
         $active = 'Movies';
 
         $movies = $movies->when($q, function($query) use ($q) {
-                    return $query->where('name', 'like', '%' .$q. '%')
-                                 ->orwhere('email', 'like', '%' .$q. '%');
+                    return $query->where('title', 'like', '%' .$q. '%')
+                                 ->orwhere('description', 'like', '%' .$q. '%');
                 })
         
         ->paginate(10);
@@ -79,7 +79,10 @@ class MovieController extends Controller
             $movie->thumbnail = $filename; // Ganti dengan nama file yang baru diupload
             $movie->save();
     
-            return redirect()->route('dashboard.movies');
+            return redirect()
+                        ->route('dashboard.movies')
+                        ->with('message', __('messages.store', ['title'=>$request->input('title')]));
+
         }
         
     }
@@ -146,7 +149,9 @@ class MovieController extends Controller
             $movie->description = $request->input('description');
             $movie->save();
     
-            return redirect()->route('dashboard.movies');
+            return redirect()
+                            ->route('dashboard.movies')
+                            ->with('message', __('messages.update', ['title'=>$request->input('title')]));;
         }
         
     }
@@ -159,8 +164,11 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
+        $title = $movie->title;
+
         $movie->delete();
         return redirect()
-                ->route('dashboard.movies');
+                ->route('dashboard.movies')
+                ->with('message', __('messages.delete', ['title' => $title]));
     }
 }
