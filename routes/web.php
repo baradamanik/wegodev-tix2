@@ -33,7 +33,15 @@ Route::put('/dashboard/movies/edit/{movie}', [App\Http\Controllers\Dashboard\Mov
 Route::post('/dashboard/movies', [App\Http\Controllers\Dashboard\MovieController::class, 'store'])->name('dashboard.movies.store');
 Route::delete('/dashboard/movies/{movie}', [App\Http\Controllers\Dashboard\MovieController::class, 'destroy'])->name('dashboard.movies.delete');
 
-Route::get('/dashboard/theaters', [App\Http\Controllers\Dashboard\TheatersController::class, 'index'])->name('dashboard.theaters');
+//movie
+Route::get('/dashboard/theaters', [App\Http\Controllers\Dashboard\TheaterController::class, 'index'])->name('dashboard.theaters');
+Route::get('/dashboard/theaters/create', [App\Http\Controllers\Dashboard\TheaterController::class, 'create'])->name('dashboard.theaters.create');
+Route::get('/dashboard/theaters/edit/{theater}', [App\Http\Controllers\Dashboard\TheaterController::class, 'edit'])->name('dashboard.theaters.edit');
+Route::put('/dashboard/theaters/edit/{theater}', [App\Http\Controllers\Dashboard\TheaterController::class, 'update'])->name('dashboard.theaters.update');
+Route::post('/dashboard/theaters', [App\Http\Controllers\Dashboard\TheaterController::class, 'store'])->name('dashboard.theaters.store');
+Route::delete('/dashboard/theaters/{theater}', [App\Http\Controllers\Dashboard\TheaterController::class, 'destroy'])->name('dashboard.theaters.delete');
+
+
 Route::get('/dashboard/ticket', [App\Http\Controllers\Dashboard\TicketController::class, 'index'])->name('dashboard.ticket');
 
 //Users 
